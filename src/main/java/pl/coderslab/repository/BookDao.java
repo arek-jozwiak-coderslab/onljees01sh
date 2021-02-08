@@ -28,7 +28,8 @@ public class BookDao {
 
     public void delete(Book book) {
         entityManager.remove(entityManager.contains(book) ?
-                book : entityManager.merge(book)); }
+                book : entityManager.merge(book));
+    }
 
 
 }
