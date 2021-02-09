@@ -13,15 +13,17 @@
         <th>Id</th>
         <th>Title</th>
         <th>Publisher</th>
+        <th>Akcje</th>
     </tr>
     <c:forEach items="${books}" var="book">
         <tr>
             <td>${book.id}</td>
             <td>${book.title}</td>
             <td>${book.publisher.name}</td>
-            <td><c:forEach var="author" items="${book.authors}">
-                ${author.lastName}
-            </c:forEach></td>
+            <td>
+                <a href="<c:url value="/book/confirm?id=${book.id}"/>">usuń</a>
+                <a href="<c:url value="/book/edit?id=${book.id}"/>">edit</a>
+            </td>
         </tr>
     </c:forEach>
 

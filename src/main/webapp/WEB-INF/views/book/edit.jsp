@@ -7,12 +7,13 @@
     <title>Title</title>
 </head>
 <body>
-
-<form:form method="post" modelAttribute="book">
-    <form:select path="publisher" items="${publishers}" itemLabel="name" itemValue="id" />
+<h1>Edycja książki: ${book.title}</h1>
+<form:form method="post" modelAttribute="book" action="/book/update">
+    <form:hidden path="id"/>
+    <form:select path="publisher" items="${publishers}" itemLabel="name" itemValue="id"/>
     <form:select path="author" items="${authors}" itemLabel="firstName" itemValue="id" />
     <form:input path="title"/>
-    <input type="submit" value="Save">
+    <input type="submit" value="Update">
 </form:form>
 </body>
 </html>

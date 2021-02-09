@@ -45,6 +45,7 @@ public class BookController {
     public String showBookForm(Model model) {
         model.addAttribute("book", new Book());
         model.addAttribute("publishers", publisherDao.getAll());
+        model.addAttribute("authors", authorDao.getAll());
         return "book/form";
     }
 
@@ -86,23 +87,23 @@ public class BookController {
     }
 
 
-    @ResponseBody
-    @RequestMapping("/edit")
-    public String editBook() {
-        Book book = bookDao.findById(1l);
-        book.setTitle("Thinking in Java 2");
-        book.setDescription("Very long book about java 2.");
-        bookDao.update(book);
-        return "edit";
-    }
+//    @ResponseBody
+//    @RequestMapping("/edit")
+//    public String editBook() {
+//        Book book = bookDao.findById(1l);
+//        book.setTitle("Thinking in Java 2");
+//        book.setDescription("Very long book about java 2.");
+//        bookDao.update(book);
+//        return "edit";
+//    }
 
-    @ResponseBody
-    @RequestMapping("/delete")
-    public String deleteBook() {
-        Book book = bookDao.findById(1l);
-        bookDao.delete(book);
-        return "deleted";
-    }
+//    @ResponseBody
+//    @RequestMapping("/delete")
+//    public String deleteBook() {
+//        Book book = bookDao.findById(1l);
+//        bookDao.delete(book);
+//        return "deleted";
+//    }
 
     @ResponseBody
     @RequestMapping("/get/{id}")
@@ -122,8 +123,34 @@ public class BookController {
 
     @RequestMapping("/all-list")
     public String getAllBookJps(Model model) {
-        model.addAttribute("books", bookDao.getAllWithAuthors());
+        model.addAttribute("books", bookDao.getAll());
         return "book/list";
+    }
+
+    @RequestMapping("/confirm")
+    public String confirmShow() {
+        return "book/confirm";
+    }
+
+    @RequestMapping("/delete/{id}")
+    public String confirmDelete(@PathVariable long id) {
+        bookDao.delete(bookDao.findById(id));
+        return "redirect:/book/all-list";
+    }
+
+
+    @RequestMapping("/edit")
+    public String editBook(@RequestParam long id, Model model) {
+        Book book = bookDao.findById(id);
+        model.addAttribute("publishers", publisherDao.getAll());
+        model.addAttribute("book", book);
+        return "book/edit";
+    }
+
+    @RequestMapping("/update")
+    public String editBook(Book book) {
+        bookDao.update(book);
+        return "redirect:/book/all-list";
     }
 
 
