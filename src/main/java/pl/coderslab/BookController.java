@@ -120,5 +120,11 @@ public class BookController {
         return "deleted";
     }
 
+    @RequestMapping("/all-list")
+    public String getAllBookJps(Model model) {
+        model.addAttribute("books", bookDao.getAllWithAuthors());
+        return "book/list";
+    }
+
 
 }

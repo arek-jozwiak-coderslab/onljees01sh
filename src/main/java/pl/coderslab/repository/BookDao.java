@@ -63,5 +63,10 @@ public class BookDao {
         return select.getResultList();
     }
 
+    public List<Book> getAllWithAuthors() {
+        Query select = entityManager.createQuery("SELECT b from Book b JOIN FETCH b.authors");
+        return select.getResultList();
+    }
+
 
 }
