@@ -2,6 +2,7 @@ package pl.coderslab.model;
 
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "books")
@@ -16,8 +17,19 @@ public class Book {
     @ManyToOne
     private Author author;
 
+    @ManyToMany
+    private List<Author> authors;
+
     @ManyToOne
     private Publisher publisher;
+
+    public List<Author> getAuthors() {
+        return authors;
+    }
+
+    public void setAuthors(List<Author> authors) {
+        this.authors = authors;
+    }
 
     public Author getAuthor() {
         return author;
@@ -67,5 +79,14 @@ public class Book {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", rating=" + rating +
+                '}';
     }
 }
