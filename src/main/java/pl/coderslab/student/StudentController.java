@@ -7,7 +7,31 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
+@RequestMapping("/student")
 public class StudentController {
+
+    @ModelAttribute(name = "programmingSkills")
+    public List<String> getprogrammingSkills() {
+
+        return List.of("Java", "MySQL", "JSP", "PHP", "RTV");
+    }
+
+    @RequestMapping(value = "/add", method = RequestMethod.GET)
+    public String addStudentForm(Model model) {
+        model.addAttribute("student", new Student());
+        return "student/form";
+    }
+
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @ResponseBody
+    public String addStudent(Student student) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(student.getFirstName()).append("  : ").append(student.getLastName());
+        sb.append(student.isMailingList() ? " yes" : " no");
+        sb.append(" Skills: ");
+        student.getProgrammingSkills().forEach(ps -> sb.append(ps).append(" "));
+        return sb.toString();
+    }
 
     @RequestMapping(value = "/simple", method = RequestMethod.GET)
     public String simple() {

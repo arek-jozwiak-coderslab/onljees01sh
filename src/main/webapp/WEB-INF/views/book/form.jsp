@@ -10,7 +10,6 @@
 
 <form:form method="post" modelAttribute="book">
     <form:select path="publisher" items="${publishers}" itemLabel="name" itemValue="id" />
-    <form:checkboxes path="publisher" items="${publishers}" itemLabel="name" itemValue="id" />
     <form:input path="title"/>
     <input type="submit" value="Save">
 </form:form>

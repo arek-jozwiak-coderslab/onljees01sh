@@ -8,10 +8,12 @@
 </head>
 <body>
 
-<form:form method="post" modelAttribute="person">
-    <form:input path="login"/>
-    <form:password path="password"/>
-    <form:input path="email"/>
+<form:form method="post" modelAttribute="student">
+    <form:input path="firstName"/>
+    <form:input path="lastName"/>
+    <form:checkbox path="mailingList"/>
+    <form:checkboxes path="programmingSkills" items="${programmingSkills}"/>
+
     <input type="submit" value="Save">
 </form:form>
 </body>

@@ -40,13 +40,19 @@ public class BookController {
         allForPublisher.forEach(b -> System.out.println(b));
         return "test";
     }
+
     @GetMapping("/show-form")
-    public String showBookForm(Model model){
+    public String showBookForm(Model model) {
         model.addAttribute("book", new Book());
         model.addAttribute("publishers", publisherDao.getAll());
         return "book/form";
     }
 
+    @PostMapping("/show-form")
+    public String performBookForm(Book book) {
+        bookDao.saveBook(book);
+        return "book/form";
+    }
 
 
     @ResponseBody
