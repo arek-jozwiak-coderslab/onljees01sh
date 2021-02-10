@@ -1,8 +1,10 @@
 package pl.coderslab.student;
 
+import javax.validation.constraints.Size;
 import java.util.List;
 
 public class Student {
+    @Size(min=2, max=20)
     private String firstName;
     private String lastName;
     private boolean mailingList;

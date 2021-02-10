@@ -1,14 +1,39 @@
 package pl.coderslab.student;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.Validator;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/student")
 public class StudentController {
+
+    @Autowired
+    Validator validator;
+
+
+    @RequestMapping(value = "/validate", method = RequestMethod.GET)
+    @ResponseBody
+    public String validateSample() {
+        Student student = new Student();
+        student.setFirstName("w");
+        Set<ConstraintViolation<Student>> validate = validator.validate(student);
+        if(validate.isEmpty()){
+            System.out.println("JEST OK STUDENT");
+        }
+        for (ConstraintViolation<Student> studentConstraintViolation : validate) {
+            System.out.println(studentConstraintViolation.getPropertyPath());
+            System.out.println(studentConstraintViolation.getMessage());
+        }
+
+        return "student/form";
+    }
 
     @ModelAttribute(name = "programmingSkills")
     public List<String> getprogrammingSkills() {

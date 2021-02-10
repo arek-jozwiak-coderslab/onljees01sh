@@ -51,7 +51,10 @@ public class BookController {
 
     @PostMapping("/show-form")
     public String performBookForm(Book book) {
-        bookDao.saveBook(book);
+        if (BookValidator.validateBook(book)) {
+
+            bookDao.saveBook(book);
+        }
         return "book/form";
     }
 

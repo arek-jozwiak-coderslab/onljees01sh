@@ -18,6 +18,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import pl.coderslab.books.PublisherConverter;
 
 import javax.persistence.EntityManagerFactory;
+import javax.validation.Validator;
 import java.util.Locale;
 
 @Configuration
@@ -49,12 +50,14 @@ public class AppConfig implements WebMvcConfigurer {
         entityManagerFactoryBean.setPersistenceUnitName("onljees01PersistenceUnit");
         return entityManagerFactoryBean;
     }
+
     @Bean
     public JpaTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {
         JpaTransactionManager jpaTransactionManager =
                 new JpaTransactionManager(entityManagerFactory);
         return jpaTransactionManager;
     }
+
     @Override
     public void addFormatters(FormatterRegistry registry) {
         registry.addConverter(getPublisherConverter());
@@ -63,5 +66,17 @@ public class AppConfig implements WebMvcConfigurer {
     @Bean
     public PublisherConverter getPublisherConverter() {
         return new PublisherConverter();
+    }
+
+    @Bean(name = "localeResolver")
+    public LocaleContextResolver getLocaleContextResolver() {
+        SessionLocaleResolver localeResolver = new SessionLocaleResolver();
+        localeResolver.setDefaultLocale(new Locale("pl", "PL"));
+        return localeResolver;
+    }
+
+    @Bean
+    public Validator validator() {
+        return new LocalValidatorFactoryBean();
     }
 }

@@ -2,6 +2,7 @@ package pl.coderslab.model;
 
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.util.List;
 
 @Entity
@@ -11,17 +12,32 @@ public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Size(min = 5)
     private String title;
+
+    @Min(1)
+    @Max(10)
     private int rating;
-
+    @Positive
+    private int pages;
     @ManyToOne
+    @NotNull
     private Author author;
-
     @ManyToMany
     private List<Author> authors;
-
     @ManyToOne
+    @NotNull
     private Publisher publisher;
+    @Size(max = 600)
+    private String description;
+
+    public int getPages() {
+        return pages;
+    }
+
+    public void setPages(int pages) {
+        this.pages = pages;
+    }
 
     public List<Author> getAuthors() {
         return authors;
@@ -54,8 +70,6 @@ public class Book {
     public void setRating(int rating) {
         this.rating = rating;
     }
-
-    private String description;
 
     public Long getId() {
         return id;
