@@ -10,6 +10,7 @@
 
 <form:form method="post" modelAttribute="drink">
     <div>
+        <form:hidden path="id"/>
         <form:input path="name"/>
     </div>
     <div>

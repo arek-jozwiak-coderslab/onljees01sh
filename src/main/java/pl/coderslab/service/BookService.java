@@ -9,6 +9,9 @@ public class BookService {
     private final BookDao bookDao;
 
     public BookService(BookDao bookDao) {
+        System.out.println("Asdasd");
+        System.out.println("Asdasd");
+
         this.bookDao = bookDao;
     }
 
