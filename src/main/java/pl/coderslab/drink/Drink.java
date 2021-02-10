@@ -1,9 +1,6 @@
 package pl.coderslab.drink;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.*;
 
 @Entity
@@ -15,6 +12,17 @@ public class Drink {
 
     @NotBlank
     private String name;
+
+    @ManyToOne
+    private DrinkCategory category;
+
+    public DrinkCategory getCategory() {
+        return category;
+    }
+
+    public void setCategory(DrinkCategory category) {
+        this.category = category;
+    }
 
     @Min(1)
     @Max(10)
